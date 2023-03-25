@@ -1,12 +1,7 @@
 class Bureau {
 
 
-  private int position;
-  private boolean isTwins;
-  private boolean isProf;
-  private PShape BureauShape;
-
-
+  
 
   // COULEUR BUREAU
   private final color COULEUR_BUREAU_PRINCIPAL = color(#90e0ef);
@@ -36,6 +31,12 @@ class Bureau {
   private final color COULEUR_SUPP_MONITOR_3 = color(100, 100, 98);
   // IMAGE ECRAN MONITOR
   private final String NOM_IMAGE = "SALLEA106.png";
+
+
+  private int position;
+  private boolean isTwins;
+  private boolean isProf;
+  private PShape BureauShape;
 
 
   public Bureau(int position, boolean isTwins, boolean isProf) {

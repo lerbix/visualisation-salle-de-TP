@@ -1,10 +1,9 @@
-
 float rotationX, roationY;
 float x, y, z;
 float tx, ty, tz;
-float xComp, zComp;
-int moveX;
-int moveZ;
+float xC, zC;
+int mvX;
+int mvZ;
 boolean moveUP, moveDOWN, moveLEFT, moveRIGHT;
 int mvVitesse = 20;
 boolean isDay = true;
@@ -55,11 +54,11 @@ PShape dessinerSalle() {
   groupe.addChild(textures.porteEntre());
   groupe.addChild(textures.tableau());
   groupe.addChild(textures.porteInterieur());
-  groupe.addChild(textures.window());
+  groupe.addChild(textures.Fenetre());
   groupe.addChild(textures.bareFenetre());
   groupe.addChild(textures.chauffage());
   groupe.addChild(textures.dessinerRideau());
-  groupe.addChild(textures.rideauEnrouleDerouler(isRideauActive));
+  groupe.addChild(textures.ecranProjecteur(isRideauActive));
   groupe.addChild(textures.television());
   groupe.addChild(remplirSalleBureau(3));
   groupe.rotateY(PI/2);
@@ -93,7 +92,6 @@ PShape remplirSalleBureau(int echelle) {
   for (int i  = 0; i <bureau.length; i++) {
     groupe.addChild(bureau[i]);
     if (i%2==0&&i!=4) bureau[i].translate(0, 0, -140*(i+1));
-
     else if (i%2!=0 && i>0)  bureau[i].translate(0, 0, -140*(i-1));
   }
 
@@ -123,10 +121,10 @@ void initVariablesCamera() {
   tx = width/2;
   ty = height/2;
   tz = 0;
-  xComp = tx - x;
-  zComp = tz - z;
-  moveX = 0;
-  moveX = 0;
+  xC = tx - x;
+  zC = tz - z;
+  mvX = 0;
+  mvX = 0;
   moveUP = false;
   moveDOWN = false;
   moveLEFT = false;
@@ -136,43 +134,43 @@ void initVariablesCamera() {
 
 public void updateCamera() {
   if (moveUP) {
-    z += zComp/mvVitesse;
-    tz+= zComp/mvVitesse;
-    x += xComp/mvVitesse;
-    tx+= xComp/mvVitesse;
+    z += zC/mvVitesse;
+    tz+= zC/mvVitesse;
+    x += xC/mvVitesse;
+    tx+= xC/mvVitesse;
   } else if (moveDOWN) {
-    z -= zComp/mvVitesse;
-    tz-= zComp/mvVitesse;
-    x -= xComp/mvVitesse;
-    tx-= xComp/mvVitesse;
+    z -= zC/mvVitesse;
+    tz-= zC/mvVitesse;
+    x -= xC/mvVitesse;
+    tx-= xC/mvVitesse;
   }
   if (moveRIGHT) {
-    z += xComp/mvVitesse;
-    tz+= xComp/mvVitesse;
-    x -= zComp/mvVitesse;
-    tx-= zComp/mvVitesse;
+    z += xC/mvVitesse;
+    tz+= xC/mvVitesse;
+    x -= zC/mvVitesse;
+    tx-= zC/mvVitesse;
   }
   if (moveLEFT) {
-    z -= xComp/mvVitesse;
-    tz-= xComp/mvVitesse;
-    x += zComp/mvVitesse;
-    tx+= zComp/mvVitesse;
+    z -= xC/mvVitesse;
+    tz-= xC/mvVitesse;
+    x += zC/mvVitesse;
+    tx+= zC/mvVitesse;
   }
   camera(x, y, z, tx, ty, tz, 0, 1, 0);
 }
 
 public void keyPressed() {
   if (keyCode == UP || key == 'w') {
-    moveZ = -5;
+    mvZ = -5;
     moveUP = true;
   } else if (keyCode == DOWN || key == 's') {
-    moveZ = 5;
+    mvZ = 5;
     moveDOWN = true;
   } else if (keyCode == LEFT || key == 'a') {
-    moveX = -5;
+    mvX = -5;
     moveLEFT = true;
   } else if (keyCode == RIGHT || key == 'd') {
-    moveX = 5;
+    mvX = 5;
     moveRIGHT = true;
   }
 
@@ -189,16 +187,16 @@ public void keyPressed() {
 public void keyReleased() {
   if (keyCode == UP || key == 'w') {
     moveUP = false;
-    moveZ = 0;
+    mvZ = 0;
   } else if (keyCode == DOWN || key == 's') {
     moveDOWN = false;
-    moveZ = 0;
+    mvZ = 0;
   } else if (keyCode == LEFT || key == 'a') {
     moveLEFT = false;
-    moveX = 0;
+    mvX = 0;
   } else if (keyCode == RIGHT || key == 'd') {
     moveRIGHT = false;
-    moveX = 0;
+    mvX = 0;
   }
 }
 
